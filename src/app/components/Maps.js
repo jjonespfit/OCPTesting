@@ -1,7 +1,7 @@
 import React from "react";
-import { GoogleMap, Marker, Circle } from "@react-google-maps/api";
+import { GoogleMap, Marker, Circle, LoadScript } from "@react-google-maps/api";
 
-const Map = ({ center, stores }) => {
+const Maps = ({ center, stores, googleMapsApiKey }) => {
   const containerStyle = {
     width: "80%",
     height: "400px",
@@ -16,24 +16,26 @@ const Map = ({ center, stores }) => {
   const radiusInMeters = 5 * 1609.34;
 
   return (
-    <GoogleMap mapContainerStyle={containerStyle} center={defaultCenter} zoom={12}>
-      <Marker position={defaultCenter} label="You" />
-      {stores.map((store, index) => (
-        <Marker key={index} position={{ lat: store.latitude, lng: store.longitude }} title={store.name} />
-      ))}
-      <Circle
-        center={defaultCenter}
-        radius={radiusInMeters}
-        options={{
-          fillColor: "lightblue",
-          fillOpacity: 0.2,
-          strokeColor: "blue",
-          strokeOpacity: 0.5,
-          strokeWeight: 1,
-        }}
-      />
-    </GoogleMap>
+    <LoadScript googleMapsApiKey={googleMapsApiKey}>
+      <GoogleMap mapContainerStyle={containerStyle} center={defaultCenter} zoom={12}>
+        <Marker position={defaultCenter} label="You" />
+        {stores.map((store, index) => (
+          <Marker key={index} position={{ lat: store.latitude, lng: store.longitude }} title={store.name} />
+        ))}
+        <Circle
+          center={defaultCenter}
+          radius={radiusInMeters}
+          options={{
+            fillColor: "lightblue",
+            fillOpacity: 0.2,
+            strokeColor: "blue",
+            strokeOpacity: 0.5,
+            strokeWeight: 1,
+          }}
+        />
+      </GoogleMap>
+    </LoadScript>
   );
 };
 
-export default Map;
+export default Maps;
