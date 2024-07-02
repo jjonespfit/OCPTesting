@@ -20,6 +20,9 @@ const Home = () => {
   const [stores, setStores] = useState([]);
   const [addressSelected, setAddressSelected] = useState(false);
 
+  // Retrieve the Google Maps API key from environment variables
+  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
   // Function to handle address selection and update address state
   const handleAddressSelect = (selectedAddress) => {
     setAddress(selectedAddress);
@@ -53,7 +56,7 @@ const Home = () => {
         {!location && <p>Loading...</p>}
         {location && addressSelected && (
           <>
-            <Maps center={location} stores={stores} />
+            <Maps center={location} stores={stores} googleMapsApiKey={googleMapsApiKey} />
             <StoreList stores={stores} />
           </>
         )}
